@@ -16,17 +16,14 @@ public class Login {
     }
 
     public boolean verificaLogin(String nome, String senha) {
-        return ((this.nome.equals(nome) && this.senha.equals(senha)) ? true : false);
+        return (this.nome.equals(nome) && this.senha.equals(senha));
     }
-    
+
     public static void main(String[] args) {
-        // Criando a instância
-        Login meuLogin = new Login();
-        
-        meuLogin.nome = "eduardo";
-        meuLogin.senha = "123";
-        // System.out.println(meuLogin.getNome());
-        // System.out.println(meuLogin.getSenha());
-        System.out.println(meuLogin.verificaLogin("eduardo", "123"));
+        // a) Criar instância com nome = "eduardo" e senha = "123"
+        Login meuLogin = new Login("eduardo", "123");
+
+        // Imprimir retorno do método verificaLogin com nome = "carlos" e senha = "123"
+        System.out.println(meuLogin.verificaLogin("carlos", "123"));
     }
 }
