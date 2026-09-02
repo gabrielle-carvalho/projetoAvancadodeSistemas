@@ -1,0 +1,7 @@
+Estudo de caso: Agenda/Contato
+A agenda deve adicionar, localizar, remover e listar contatos. O telefone controla a unicidade: não podem existir dois contatos com o mesmo número.
+
+AgendaList usa List.
+AgendaMap usa Map.
+Ambas implementam IF_Agenda antes da refatoração final.
+FabricaAgenda aplica Factory Method e Singleton.
