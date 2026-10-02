@@ -1,30 +1,45 @@
 package fib;
+
 import java.util.*;
 
 public abstract class Agenda {
+
     public abstract boolean adicionaContato(IF_Contato contato);
     public abstract boolean removeContato(String telefone);
     public abstract IF_Contato getContato(String telefone);
-    public abstract Collection getLista();
+    
+    public abstract Collection getLista(); 
 
-    public Collection<IF_Contato> listaContato() {
-        Collection<IF_Contato> resultado = new ArrayList<IF_Contato>();
-        Iterator iterator = getLista().iterator();
-        while (iterator.hasNext()) {
-            resultado.add((IF_Contato) iterator.next());
+    public IF_Contato[] listaContato() {
+        Collection lista = getLista();
+        Iterator it = lista.iterator(); 
+        IF_Contato[] contatos = new IF_Contato[lista.size()];
+
+        int i = 0;
+        while (it.hasNext()) {
+            contatos[i] = (IF_Contato) it.next();
+            i++;
         }
-        return resultado;
+
+        return contatos;
     }
 
-    public Collection<IF_Contato> listaContatoIniciais(String iniciais) {
-        Collection<IF_Contato> resultado = new ArrayList<IF_Contato>();
-        Iterator iterator = getLista().iterator();
-        while (iterator.hasNext()) {
-            IF_Contato contato = (IF_Contato) iterator.next();
-            if (contato != null && contato.getNome() != null && contato.getNome().startsWith(iniciais)) {
-                resultado.add(contato);
+    public IF_Contato[] listaContatoIniciais(String iniciais) {
+        Iterator it = getLista().iterator();
+        ArrayList<IF_Contato> contatos = new ArrayList<>();
+
+        while (it.hasNext()) {
+            IF_Contato contato = (IF_Contato) it.next();
+            if (contato.getNome().startsWith(iniciais)) {
+                contatos.add(contato);
             }
         }
+
+        IF_Contato[] resultado = new IF_Contato[contatos.size()];
+        for (int i = 0; i < contatos.size(); i++) {
+            resultado[i] = contatos.get(i);
+        }
+
         return resultado;
     }
 }
@@ -36,9 +51,12 @@ class AgendaList extends Agenda {
         if (telefone == null) {
             return -1;
         }
-        IF_Contato contato = new Contato();
-        contato.setTelefone(telefone);
-        return this.listaAgenda.indexOf(contato);
+        for (int i = 0; i < this.listaAgenda.size(); i++) {
+            if (this.listaAgenda.get(i).getTelefone().equals(telefone)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
